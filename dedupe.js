@@ -28,13 +28,13 @@ export {
 AsyncIterDedupe.prototype= Object.create( Map.prototype, {
 	map: {
 		get: function(){
-			return this.outterMap
+			return this.outerMap
 		},
 		set: function( innerMap){
 			this.innerMap= innerMap
 		}
 	},
-	outterMap: {
+	outerMap: {
 		value: function map( item){
 			if( this.innerMap){
 				item= this.innerMap( item)
