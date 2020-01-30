@@ -52,3 +52,4 @@ AsyncIterDedupe.prototype= Object.create( Map.prototype, {
 		}
 	}
 })
+AsyncIterDedupe.prototype.constructor= AsyncIterDedupe
