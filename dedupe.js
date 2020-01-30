@@ -36,10 +36,13 @@ AsyncIterDedupe.prototype= Object.create( Map.prototype, {
 	},
 	outerMap: {
 		value: function map( item){
+			if( item=== DropItem){
+				return DropItem
+			}
 			if( this.innerMap){
 				item= this.innerMap( item)
 			}
-			if( item=== DropItem|| this.isEqual( item, this.state)){
+			if( this.isEqual( item, this.state)){
 				return DropItem
 			}
 			this.state= item
