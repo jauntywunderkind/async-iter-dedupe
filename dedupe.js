@@ -1,13 +1,9 @@
 import Map, { DropItem} from "async-iter-map"
 
 export function AsyncIterDedupe( opt= {}){
-	const { isEqual, map: innerMap, ...rest}= opt
+	const { isEqual, ...rest}= opt
 	Map.call( this, rest)
 	Object.defineProperties( this, {
-		innerMap: {
-			value: innerMap,
-			writable: true
-		},
 		...(isEqual&& { isEqual: {
 			value: isEqual,
 			writable: true
@@ -26,22 +22,11 @@ export {
 	AsyncIterDedupe as Dedupe
 }
 AsyncIterDedupe.prototype= Object.create( Map.prototype, {
-	map: {
-		get: function(){
-			return this.outerMap
-		},
-		set: function( innerMap){
-			this.innerMap= innerMap
-		}
+	_maps: {
+		value: [ "_dedupe", "map"]
 	},
-	outerMap: {
+	_dedupe: {
 		value: function map( item){
-			if( item=== DropItem){
-				return DropItem
-			}
-			if( this.innerMap){
-				item= this.innerMap( item)
-			}
 			if( this.isEqual( item, this.state)){
 				return DropItem
 			}
